@@ -1,0 +1,25 @@
+{
+  "name": "quemtaaqui",
+  "version": "1.0.0",
+  "description": "Repositório do backend do projeto Quem Tá Aqui que facilitará nas aulas de laboratórios de saber que aluno está em que máquina.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dandaramcsousa/quemtaaqui-back.git"
+  },
+  "author": "Dandara Sousa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dandaramcsousa/quemtaaqui-back/issues"
+  },
+  "homepage": "https://github.com/dandaramcsousa/quemtaaqui-back#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "nodemon": "^1.18.4"
+  }
+}
