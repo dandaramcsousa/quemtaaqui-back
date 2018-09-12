@@ -1,24 +1,42 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 //const mongoose = require("mongoose");
-
 const courses = require('./routes/api/course');
 const students = require('./routes/api/student');
 const teachers = require('./routes/api/teacher');
 
 const app = express();
 
-app.listen(3000, () => console.log('Quem tá aqui??'))
+app.listen(3000, () => console.log('Quem tá aqui??'));
 
 app.use("/api/course", courses);
 app.use("/api/student", students);
-app.use("/api/teacher", teachers)
+app.use("/api/teacher", teachers);
 
-/*
-app.get('/', function(req,res){
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({ a: 1 }))
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use('/static', express.static('static'));
+
+
+app.use(function (req, res, next) {
+    res.header('Content-Type', 'application/json');
+    next();
 });
 
+app.get('/', function(req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({ hello:" world" }))
+});
+
+app.post('/', function (req, res) {
+    res.end(JSON.stringify(req.body, null, 2))
+});
+
+module.exports = app;
+
+
+/*
 
 app.get('/login', function(req,res){
     res.send('Aqui será o login.')
