@@ -1,3 +1,9 @@
+/**
+ * @swagger
+ * resourcePath: /api/student
+ * description: Teacher API
+ */
+
 const express = require("express");
 const router = express.Router();
 
