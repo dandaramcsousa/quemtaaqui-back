@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
+const cors = require('cors');
+const passaport = require('passport');
 
 const courses = require('./routes/api/course');
 const students = require('./routes/api/student');
@@ -11,7 +13,7 @@ const app = express();
 
 
 app.listen(3000, () => console.log('Quem tá aqui??'));
-
+app.use(cors());
 app.use("/api/course", courses);
 app.use("/api/student", students);
 app.use("/api/teacher", teachers);
@@ -29,7 +31,8 @@ app.use(function (req, res, next) {
 
 app.get('/', function(req, res) {
     res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({ hello:" world" }))
+    //res.send(JSON.stringify({ hello:" world" }))
+    res.json({msg: 'This is CORS-enabled for all origins!'})
 });
 
 app.post('/', function (req, res) {
