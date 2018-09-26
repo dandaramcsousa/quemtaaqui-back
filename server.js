@@ -1,11 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-//const mongoose = require("mongoose");
+const mongoose = require("mongoose");
+
 const courses = require('./routes/api/course');
 const students = require('./routes/api/student');
 const teachers = require('./routes/api/teacher');
 
+mongoose.connect('mongodb://heroku_832fsrbb:kofhu9tu91bo94cb1s113g5o00@ds115753.mlab.com:15753/heroku_832fsrbb');
 const app = express();
+
 
 app.listen(3000, () => console.log('Quem tá aqui??'));
 
