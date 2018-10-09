@@ -1,14 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
-const passaport = require('passport');
+const passport = require("passport");
 const logger = require("heroku-logger");
 const swagger = require("swagger-express");
 
 //Import de routes
-const courses = require('./routes/api/course');
-const students = require('./routes/api/student');
-const teachers = require('./routes/api/teacher');
+const courses = require('./routes/api/courses');
+const students = require('./routes/api/students');
+const teachers = require('./routes/api/teachers');
+const users = require('./routes/api/users');
 
 const app = express();
 
@@ -29,8 +30,8 @@ mongoose
   .catch(err => logger.error(err));
 
 // Passport middleware
-//app.use(passport.initialize());
-//require("./config/passport")(passport);
+app.use(passport.initialize());
+require("./config/passport")(passport);
 
 // API documentation UI
 app.use(
@@ -42,17 +43,18 @@ app.use(
       swaggerJSON: "/api-docs.json",
       swaggerUI: "./docs-ui/swagger/",
       apis: [
-        "./routes/api/course.js",
-        "./routes/api/student.js",
-        "./routes/api/teacher.js"
+        "./routes/api/courses.js",
+        "./routes/api/students.js",
+        "./routes/api/teachers.js"
       ]
     })
   );
 
 // Usa as rotas
-app.use("/api/course", courses);
-app.use("/api/student", students);
-app.use("/api/teacher", teachers);
+app.use("/api/courses", courses);
+app.use("/api/students", students);
+app.use("/api/teachers", teachers);
+app.use("/api/users", users);
 
 app.get('/', function(req, res) {
     res.setHeader('Content-Type', 'application/json');
