@@ -22,6 +22,7 @@
     "body-parse": "^0.1.0",
     "cors": "^2.8.4",
     "express": "^4.16.3",
+    "heroku-logger": "^0.3.1",
     "mongoose": "^5.2.17",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.4",
