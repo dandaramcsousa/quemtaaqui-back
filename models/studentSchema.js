@@ -16,12 +16,4 @@ var studentSchema = new mongoose.Schema({
     }
 });
 
-var Student = mongoose.model('Student', studentSchema);
-
-var dands = new Student({name: "Dands", id: 114110434, class:["Projeto 2", "Programacao 3", "MSN"]})
-dands.save(function (err, dands) {
-    if (err) return console.error(err);
-    console.log("Objeto salvo: " + dands);
-  });
-
 module.exports = Student = mongoose.model('Student', studentSchema);
