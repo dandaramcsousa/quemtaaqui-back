@@ -1,69 +1,69 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
-const cors = require('cors');
 const passaport = require('passport');
+const logger = require("heroku-logger");
+const swagger = require("swagger-express");
 
+//Import de routes
 const courses = require('./routes/api/course');
 const students = require('./routes/api/student');
 const teachers = require('./routes/api/teacher');
 
-mongoose.connect('mongodb://heroku_832fsrbb:kofhu9tu91bo94cb1s113g5o00@ds115753.mlab.com:15753/heroku_832fsrbb');
 const app = express();
 
+// Body parser middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-app.listen(3000, () => console.log('Quem tá aqui??'));
-app.use(cors());
+// DB Config
+const db = require("./config/keys").mongoURI;
+
+// Connect to MongoDB
+mongoose
+  .connect(
+    db,
+    { useNewUrlParser: true }
+  )
+  .then(() => logger.info("Banco de dados conectado!"))
+  .catch(err => logger.error(err));
+
+// Passport middleware
+//app.use(passport.initialize());
+//require("./config/passport")(passport);
+
+// API documentation UI
+app.use(
+    swagger.init(app, {
+      apiVersion: "1.0",
+      swaggerVersion: "1.0",
+      basePath: "http://localhost:3000",
+      swaggerURL: "/docs/api",
+      swaggerJSON: "/api-docs.json",
+      swaggerUI: "./docs-ui/swagger/",
+      apis: [
+        "./routes/api/course.js",
+        "./routes/api/student.js",
+        "./routes/api/teacher.js"
+      ]
+    })
+  );
+
+// Usa as rotas
 app.use("/api/course", courses);
 app.use("/api/student", students);
 app.use("/api/teacher", teachers);
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
-app.use('/static', express.static('static'));
-
-
-app.use(function (req, res, next) {
-    res.header('Content-Type', 'application/json');
-    next();
-});
-
 app.get('/', function(req, res) {
     res.setHeader('Content-Type', 'application/json');
-    //res.send(JSON.stringify({ hello:" world" }))
-    res.json({msg: 'This is CORS-enabled for all origins!'})
+    res.send(JSON.stringify({ hello:" world" }))
 });
 
 app.post('/', function (req, res) {
     res.end(JSON.stringify(req.body, null, 2))
 });
 
+const port = process.env.PORT || 3000;
+app.listen(port, () => logger.info(`Servidor em ${port}`));
+
 module.exports = app;
-
-
-/*
-
-app.get('/login', function(req,res){
-    res.send('Aqui será o login.')
-})
-
-app.get('/professor/:id', function(req,res){
-    res.send('Pisa menos professor, ' + req.params.id)
-})
-
-app.get('/aluno/:id', function(req,res){
-    res.send('USER')
-})
-
-app.get('/aluno/:id/turma/:id', function(req,res){
-    res.send(JSON.stringify({aluno_id: 21, turma_id:31}))
-})
-
-app.post('/professor/:id/criar-turma', function(req,res){
-    res.send('POST request')
-})
-
-app.delete('/professor/:id/deletar-turma/:id', function(req,res){
-    res.send('Got a DELETE request at /user ')
-})*/
