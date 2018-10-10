@@ -28,6 +28,13 @@ mongoose
   )
   .then(() => logger.info("Banco de dados conectado!"))
   .catch(err => logger.error(err));
+//Models
+require("./models/courseSchema");
+require("./models/studentSchema");
+require("./models/teacherSchema");
+require("./models/userSchema");
+
+
 
 // Passport middleware
 app.use(passport.initialize());
