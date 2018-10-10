@@ -1,13 +1,17 @@
-import mongoose, { mongo } from 'mongoose';
+const mongoose = require('mongoose');
 
 var teacherSchema = new mongoose.Schema({
     name:  {
         type: String,
         required: true
     },
-    SIAPE: {
+    teacherid: {
         type: Number,
         required: true
+    },
+    class:{
+        type:Schema.Types.ObjectId,
+        ref: "course"
     }
 });
 module.exports = Teacher = mongoose.model('Teacher', teacherSchema);

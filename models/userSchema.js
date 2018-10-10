@@ -10,7 +10,7 @@ var userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    studentid:{
+    id:{
         type: String,
         required: true
     },

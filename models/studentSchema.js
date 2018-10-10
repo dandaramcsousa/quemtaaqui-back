@@ -1,18 +1,18 @@
-import mongoose, { mongo } from 'mongoose';
+const mongoose = require('mongoose');
 
 var studentSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
     },
-    id:{
+    studentid:{
         type: Number,
         required: true,
         max: 9
     },
     class:{
-        type:[String],
-        required: true
+        type:Schema.Types.ObjectId,
+        ref: "course"
     }
 });
 
