@@ -15,7 +15,7 @@ module.exports = {
         res.json({
             name: req.user.name,
             email: req.user.email,
-            studentid: req.user.studentid,
+            id: req.user.id,
             password: req.user.password
         })
     },
@@ -29,7 +29,7 @@ module.exports = {
                 const newUser = new User({
                     name: req.body.name,
                     email: req.body.email,
-                    studentid: req.body.studentid,
+                    id: req.body.id,
                     password: req.body.password
                 })
                 bcrypt.genSalt(SALT_SIZE, (err, salt)=>{
@@ -49,7 +49,7 @@ module.exports = {
 
     login(req, res){
         const email = req.body.name;
-        const studentid = req.body.studentid;
+        const id = req.body.id;
         const password =  req.body.password;
 
         User.findOne({$or: [{email: email}, {matricula: matricula}]})
@@ -65,7 +65,7 @@ module.exports = {
                     const payload = {
                         name: user.name,
                         email: user.email,
-                        studentid: user.studentid
+                        id: user.id
                     }
 
                     jwt.sign(
