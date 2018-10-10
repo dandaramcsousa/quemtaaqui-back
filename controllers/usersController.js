@@ -19,7 +19,7 @@ module.exports = {
             password: req.user.password
         })
     },
-    signin(req, res){
+    signIn(req, res){
         User.findOne({email: req.body.email}).then(user =>{
             if(user){
                 return res

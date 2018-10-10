@@ -2,6 +2,7 @@ const Student = require("../models/studentSchema");
 const Course = require("../models/courseSchema");
 const User = require("../models/userSchema");
 
+const BAD_REQUEST = 400;
 
 module.exports={
     newStudent(req,res){

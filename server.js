@@ -52,7 +52,8 @@ app.use(
       apis: [
         "./routes/api/courses.js",
         "./routes/api/students.js",
-        "./routes/api/teachers.js"
+        "./routes/api/teachers.js",
+        "./routes/api/users.js"
       ]
     })
   );
